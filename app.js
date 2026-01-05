@@ -56,7 +56,7 @@ yargs.command({
     }
 });
 
-// Create remove command
+// remove command
 yargs.command({
     command: 'remove',
     describe: 'Remmove a note',
@@ -69,6 +69,15 @@ yargs.command({
     },
     handler(argv) {
         notes.removeNote(argv.title);
+    }
+});
+
+// remove all command
+yargs.command({
+    command: 'remove-all',
+    describe: 'Remove all notes',
+    handler() {
+        notes.removeAllNotes();
     }
 });
 
@@ -97,4 +106,25 @@ yargs.command({
     }
 });
 
-yargs.parse(); // same as: console.log(yargs.argv); 
+// edt note command
+yargs.command({
+    command: 'edit',
+    describe: 'Edit a note',
+    builder: {
+        title: {
+            describe: 'Note title',
+            demandOption: true,
+            type: 'string'
+        },
+        body: {
+            describe: 'New note body',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler(argv) {
+        notes.editNote(argv.title, argv.body);
+    }
+});
+
+yargs.parse(); // same as: console.log(yargs.argv);  

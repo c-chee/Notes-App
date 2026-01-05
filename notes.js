@@ -88,10 +88,30 @@ const loadNotes = () => {
     }
 };
 
+const removeAllNotes = () => {
+    saveNotes([]);
+    console.log(chalk.green.inverse('All notes removed!'));
+};
+
+const editNote = (title, newBody) => {
+    const notes = loadNotes();
+    const note = notes.find(note => note.title === title);
+
+    if (note) {
+        note.body = newBody;
+        saveNotes(notes);
+        console.log(chalk.green('Note updated.'));
+    } else {
+        console.log(chalk.red('Note not found.'));
+    }
+};
+
 module.exports = {
     // getNotes: getNotes, // Removed
     addNote: addNote,
     removeNote: removeNote,
+    removeAllNotes: removeAllNotes,
     listNotes: listNotes,
-    readNote: readNote
+    readNote: readNote,
+    editNote: editNote
 };
